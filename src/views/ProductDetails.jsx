@@ -30,7 +30,7 @@ useEffect(() => {
         {error && <p>{error}</p>}
         {!product && !error && <p>Cargando producto...</p>}
         {product && (
-          <div>
+          <div className="product-card">
             <h2>{product.title}</h2>
             <img src={product.image} alt={product.title} />
             <p><strong>Precio:</strong> ${product.price}</p>

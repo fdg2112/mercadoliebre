@@ -38,8 +38,10 @@
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
+  width: 100%;
+  padding: 0 20px;
   margin-top: -40px; /* (esto lo explico más abajo para superponer) */
   position: relative;
   z-index: 10;
@@ -123,3 +125,8 @@
 }
 
 
+@media (min-width: 1600px) {
+  .product-list {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
