@@ -3,6 +3,7 @@ import Home from "../views/Home.jsx";
 import Register from "../views/Register.jsx";
 import Login from "../views/Login.jsx";
 import NotFound from "../views/NotFound.jsx";
+import ProductDetails from "../views/ProductDetails.jsx";
 
 const Router = () => {
   return (
@@ -11,6 +12,7 @@ const Router = () => {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

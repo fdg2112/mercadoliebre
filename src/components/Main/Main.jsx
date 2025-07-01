@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Main.css";
 
 const Main = () => {
@@ -25,18 +26,26 @@ const Main = () => {
 
   return (
     <main className="main">
-        <div className="main-header">
-          <h1>Productos</h1>
+        <div className="main-header banner">
+          <img src="/src/assets/img1.jpg" alt="banner" />
         </div>
         <div className="main-content">
           {error && <p className="error">{error}</p>}
           {products.length > 0 ? (
             <ul className="product-list">
               {products.map(product => (
-                <li className="product-item">
+                <li key={product.id} className="product-item">
+                  <div className="product-img-container">
+                    <img src={product.image} alt={product.title} />
+                  </div>
                   <h2>{product.title}</h2>
                   <p>Precio: ${product.price}</p>
-                  <img src={product.image} alt={product.title} />
+                  <div className="card-buttons">
+                    <button className="add-to-cart">Añadir al carrito</button>
+                    <Link to={`/products/${product.id}`} className="view-details">
+                      Ver detalles
+                    </Link>
+                  </div>
                 </li>
               ))}
             </ul>
