@@ -1,11 +1,14 @@
-import "./Layout.css";
+import Header from "../Header/Header"
+import Footer from "../Footer/Footer"
 
-const Layout = () => {
+const Layout = (props) => {
   return (
-    <layout className="layout">
-        <p>He aquí el layout</p>
-    </layout>
-  );
+    <>
+      <Header />
+      {props.children}
+      <Footer />
+    </>
+  )
 }
 
 export default Layout;
