@@ -1,5 +1,6 @@
 import Layout from "../components/Layout/Layout";
 import "../styles/Login.css";
+import googleIcon from "../assets/google-icon.png"; // Import the Google icon
 
 const Login = () => {
   return (
@@ -19,7 +20,7 @@ const Login = () => {
               </form>
               <div className="login-divider"><span>o</span></div>
               <button type="button" className="btn-google">
-                <img src="/src/assets/google-icon.png" alt="" />  
+                <img src={googleIcon} alt="" />  
                 Iniciar sesión con Google
               </button>
             </div>

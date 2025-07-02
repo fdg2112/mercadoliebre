@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Main.css";
+import bannerImage from "../../assets/img1.jpg";
 
 const Main = () => {
   const [products, setProducts] = useState([]);
@@ -27,7 +28,7 @@ const Main = () => {
   return (
     <main className="main">
         <div className="main-header banner">
-          <img src="/src/assets/img1.jpg" alt="banner" />
+          <img src={bannerImage} alt="banner" />
         </div>
         <div className="main-content">
           {error && <p className="error">{error}</p>}
