@@ -42,7 +42,7 @@
   gap: 20px;
   width: 100%;
   padding: 0 20px;
-  margin-top: -40px; /* (esto lo explico más abajo para superponer) */
+  margin-top: -40px;
   position: relative;
   z-index: 10;
 }
@@ -59,6 +59,20 @@
   text-align: center;
 }
 
+.product-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.product-item h2 {
+  transition: color 0.2s ease;
+}
+
+.product-item:hover h2 {
+  color: #3483fa;
+}
+
+
 .product-img-container {
   height: 150px;
   display: flex;
@@ -74,14 +88,18 @@
 }
 
 .product-item h2 {
-  font-size: 1.2em;
+  font-size: 1em;
   margin: 10px 0;
   flex-grow: 0;
+  font-family: Roboto;
+  font-weight: normal;
 }
 
 .product-item p {
-  font-size: 0.9em;
+  font-size: 1em;
   color: #495057;
+  font-family: Roboto;
+  font-weight: bold;
 }
 
 .card-buttons {
@@ -124,9 +142,20 @@
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
-
 @media (min-width: 1600px) {
   .product-list {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 }
+
+.product-link,
+.product-link:visited,
+.product-link:link,
+.view-details,
+.view-details:link,
+.view-details:visited {
+  text-decoration: none;
+  font-family: inherit;
+}
+
+

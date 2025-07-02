@@ -35,11 +35,13 @@ const Main = () => {
             <ul className="product-list">
               {products.map(product => (
                 <li key={product.id} className="product-item">
-                  <div className="product-img-container">
-                    <img src={product.image} alt={product.title} />
-                  </div>
-                  <h2>{product.title}</h2>
-                  <p>Precio: ${product.price}</p>
+                  <Link to={`/products/${product.id}`} className="product-link">
+                    <div className="product-img-container">
+                      <img src={product.image} alt={product.title} />
+                    </div>
+                    <h2>{product.title}</h2>
+                    <p>Precio: ${product.price}</p>
+                  </Link>
                   <div className="card-buttons">
                     <button className="add-to-cart">Añadir al carrito</button>
                     <Link to={`/products/${product.id}`} className="view-details">

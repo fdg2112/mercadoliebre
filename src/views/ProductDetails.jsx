@@ -30,11 +30,30 @@ useEffect(() => {
         {error && <p>{error}</p>}
         {!product && !error && <p>Cargando producto...</p>}
         {product && (
-          <div className="product-card">
-            <h2>{product.title}</h2>
-            <img src={product.image} alt={product.title} />
-            <p><strong>Precio:</strong> ${product.price}</p>
-            <p>{product.description}</p>
+            <div className="product-card">
+            <div className="pd-col pd-image-col">
+              <img src={product.image} alt={product.title} />
+            </div>
+            <div className="pd-col pd-info-col">
+              <h2>{product.title}</h2>
+              <h3>${product.price}</h3>
+              <p>{product.description}</p>
+              <div className="pd-extra">
+                <p className="pd-installments">Mismo precio en 3 cuotas de ${ (product.price / 3).toFixed(2) }</p>
+                <p className="pd-subtext">o en cuotas sin tarjeta</p>
+                <p className="pd-link"><a href="#">Ver los medios de pago</a></p>
+                <p className="pd-installments">Llega gratis mañana</p>
+                <p className="pd-subtext">Comprando dentro de las próximas 12 h 36 min</p>
+                <p className="pd-link"><a href="#">Más formas de entrega</a></p>
+                <p className="pd-installments">Devolución gratis</p>
+                <p className="pd-subtext">Tenés 30 días desde que lo recibís.</p>
+                <p className="pd-link"><a href="#">Conocer más</a></p>
+              </div>
+              <div className="pd-actions">
+                <button className="btn-buy">Comprar ahora</button>
+                <button className="btn-add">Añadir al carrito</button>
+              </div>
+            </div>
           </div>
         )}
       </Layout>
