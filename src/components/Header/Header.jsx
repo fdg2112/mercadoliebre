@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
+import logoMl from "../../assets/logo-ml.png";
 
 const Header = () => {
   return (
-    <header className="header">
-        <nav className="header-nav">
-          <Link to="/" className="header-logo">
-            <img src="/src/assets/logo-ml.png" alt="Logo Mercado Liebre" className="header-logo-image" />
-          </Link>
+      <header className="header">
+          <nav className="header-nav">
+            <Link to="/" className="header-logo">
+              <img src={logoMl} alt="Logo Mercado Liebre" className="header-logo-image" />
+            </Link>
           <div className="header-search">
             <input type="text" placeholder="Buscar productos..." className="header-search-input" />
             <button className="header-search-button">🔍</button>
