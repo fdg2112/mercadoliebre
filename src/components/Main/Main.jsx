@@ -16,7 +16,7 @@ const Main = () => {
       setProducts(data);
     }
     catch (error) {
-      setError("No se pudo cargar los productos. Detalle: " + error.message);
+      setError("Ups! No se pudo cargar los productos. Algo falló, aquí el detalle: " + error.message);
     }
   }
 
@@ -35,13 +35,11 @@ const Main = () => {
             <ul className="product-list">
               {products.map(product => (
                 <li key={product.id} className="product-item">
-                  <Link to={`/products/${product.id}`} className="product-link">
-                    <div className="product-img-container">
-                      <img src={product.image} alt={product.title} />
-                    </div>
-                    <h2>{product.title}</h2>
-                    <p>Precio: ${product.price}</p>
-                  </Link>
+                  <div className="product-img-container">
+                    <img src={product.image} alt={product.title} />
+                  </div>
+                  <h2>{product.title}</h2>
+                  <p>Precio: ${product.price}</p>
                   <div className="card-buttons">
                     <button className="add-to-cart">Añadir al carrito</button>
                     <Link to={`/products/${product.id}`} className="view-details">

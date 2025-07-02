@@ -18,7 +18,7 @@ useEffect(() => {
       const data = await response.json();
       setProduct(data);
     } catch (err) {
-      setError("No se pudo cargar el producto. " + err.message);
+      setError("Ups! No se pudo cargar el producto. Algo falló, aquí el detalle: " + err.message);
     }
   };
   fetchProduct();
@@ -27,7 +27,7 @@ useEffect(() => {
   return (
     <section className="productDetails">
       <Layout>
-        {error && <p>{error}</p>}
+        {error && <p className="pd-error">{error}</p>}
         {!product && !error && <p>Cargando producto...</p>}
         {product && (
             <div className="product-card">
