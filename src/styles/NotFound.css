@@ -1,16 +1,16 @@
 .notFound {
   max-width: 400px;
-  margin: 120px auto;       /* separa de header y footer */
+  margin: 120px auto;
   padding: 0 20px;
-  text-align: center;      /* centra todo el contenido */
+  text-align: center;
 }
 
 .notFound img {
   width: 100%;
-  max-width: 200px;        /* igual ancho que el texto más o menos */
+  max-width: 200px; 
   height: auto;
   display: block;
-  margin: 0 auto 20px;     /* espacio abajo */
+  margin: 0 auto 20px;
 }
 
 .notFound h2 {

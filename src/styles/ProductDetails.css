@@ -125,7 +125,7 @@
 
 .pd-error {
   max-width: 600px;
-  margin: 39vh auto;    /* 10% de la altura de la ventana arriba y abajo */
+  margin: 39vh auto;
   padding: 12px 16px;
   background-color: #fdecea;
   color: #a94442;
