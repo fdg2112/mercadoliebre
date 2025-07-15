@@ -4,6 +4,7 @@ import Register from "../views/Register.jsx";
 import Login from "../views/Login.jsx";
 import NotFound from "../views/NotFound.jsx";
 import ProductDetails from "../views/ProductDetails.jsx";
+import Dashboard from "../views/Dashboard.jsx";
 
 const Router = () => {
   return (
