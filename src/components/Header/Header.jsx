@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logoMl from "../../assets/logo-ml.png";
+import { useState } from "react";
 
 const Header = () => {
+
+  const [user, setUser] = useState(true);
+
   return (
       <header className="header">
           <nav className="header-nav">
@@ -14,8 +18,19 @@ const Header = () => {
             <button className="header-search-button">🔍</button>
           </div>
           <ul className="header-menu">
-            <li className="header-menu-item"><Link to="/login">Iniciar Sesión</Link></li>
-            <li className="header-menu-item"><Link to="/register">Registrarse</Link></li>
+            {user ? (
+              <>
+                <li className="header-menu-item"><Link to="/">🚹Perfil</Link></li>
+                <li className="header-menu-item"><Link to="/">🛒Carrito</Link></li>
+                <li className="header-menu-item" onClick={() => setUser(null)}>Cerrar Sesión</li>
+              </>
+            ) : (
+              <>
+                <li className="header-menu-item"><Link to="/login">Iniciar Sesión</Link></li>
+                <li className="header-menu-item"><Link to="/register">Registrarse</Link></li>
+              </>
+            )}
+
           </ul>
         </nav>
     </header>
