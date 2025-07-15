@@ -23,6 +23,7 @@ const Header = () => {
                 <li className="header-menu-item"><Link to="/">🚹Perfil</Link></li>
                 <li className="header-menu-item"><Link to="/">🛒Carrito</Link></li>
                 <li className="header-menu-item" onClick={() => setUser(null)}>Cerrar Sesión</li>
+                <li className="header-menu-item"><Link to="/dashboard">Dashboard</Link></li>
               </>
             ) : (
               <>
