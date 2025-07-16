@@ -42,7 +42,10 @@ const ProductForm = () => {
         price:       data.price,
         description: data.description,
         image:       data.image,
-        category:    data.category
+        category:    data.category,
+        stock:       data.stock || 0,
+        createAt: data.createAt || new Date().toISOString(),
+        updatedAt: data.updatedAt || new Date().toISOString()
       }))
       .catch(e => setError(e.message));
   }, [id, isEditing]);
