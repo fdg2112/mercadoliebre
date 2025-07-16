@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+// src/views/Dashboard.jsx
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import "../styles/Dashboard.css";
@@ -17,6 +18,10 @@ const Dashboard = () => {
     } catch (e) {
       setError("Ups! No se pudo cargar los productos. " + e.message);
     }
+  };
+
+  const handleAdd = () => {
+    navigate("/dashboard/add");
   };
 
   const handleEdit = (id) => {
@@ -41,9 +46,15 @@ const Dashboard = () => {
       <div className="dashboard-container">
         <h1 className="dashboard-title">Bienvenido al Dashboard</h1>
         <p className="dashboard-description">
-          Aquí podrás gestionar tus productos, ver estadísticas y mucho más.
+          Acá podés gestionar tus productos.
         </p>
+
+        <button className="add-btn" onClick={handleAdd}>
+          + Agregar producto
+        </button>
+
         {error && <p className="error-message">{error}</p>}
+
         <table className="products-table">
           <thead>
             <tr>
@@ -77,5 +88,6 @@ const Dashboard = () => {
     </Layout>
   );
 };
+
 
 export default Dashboard;

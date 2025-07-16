@@ -5,8 +5,12 @@ import { useState } from "react";
 
 const Header = () => {
 
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState({
+    isLoggedIn: true,
+    role: "admin",     // o "admin"
+  });
 
+  
   return (
       <header className="header">
           <nav className="header-nav">
@@ -17,22 +21,27 @@ const Header = () => {
             <input type="text" placeholder="Buscar productos..." className="header-search-input" />
             <button className="header-search-button">🔍</button>
           </div>
-          <ul className="header-menu">
-            {user ? (
+        <ul className="header-menu">
+          {user && user.isLoggedIn ? (
+            user.role === "cliente" ? (
               <>
                 <li className="header-menu-item"><Link to="/">🚹Perfil</Link></li>
                 <li className="header-menu-item"><Link to="/">🛒Carrito</Link></li>
                 <li className="header-menu-item" onClick={() => setUser(null)}>Cerrar Sesión</li>
-                <li className="header-menu-item"><Link to="/dashboard">Dashboard</Link></li>
               </>
             ) : (
               <>
-                <li className="header-menu-item"><Link to="/login">Iniciar Sesión</Link></li>
-                <li className="header-menu-item"><Link to="/register">Registrarse</Link></li>
+                <li className="header-menu-item"><Link to="/dashboard">Dashboard</Link></li>
+                <li className="header-menu-item" onClick={() => setUser(null)}>Cerrar Sesión</li>
               </>
-            )}
-
-          </ul>
+            )
+          ) : (
+            <>
+              <li className="header-menu-item"><Link to="/login">Iniciar Sesión</Link></li>
+              <li className="header-menu-item"><Link to="/register">Registrarse</Link></li>
+            </>
+          )}
+        </ul>
         </nav>
     </header>
   );

@@ -5,6 +5,7 @@ import Login from "../views/Login.jsx";
 import NotFound from "../views/NotFound.jsx";
 import ProductDetails from "../views/ProductDetails.jsx";
 import Dashboard from "../views/Dashboard.jsx";
+import ProductForm from "../views/ProductForm.jsx";
 
 const Router = () => {
   return (
@@ -15,6 +16,8 @@ const Router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/add" element={<ProductForm />} />
+        <Route path="/dashboard/edit/:id" element={<ProductForm />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
