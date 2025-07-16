@@ -1,22 +1,40 @@
 // src/views/Dashboard.jsx
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import "../styles/Dashboard.css";
 
+import { db } from "../config/Firebase";
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc
+} from "firebase/firestore";
+
 const Dashboard = () => {
   const [products, setProducts] = useState([]);
-  const [error, setError] = useState(null);
+  const [error, setError]       = useState(null);
+  const [loading, setLoading]   = useState(false);
   const navigate = useNavigate();
 
+  // Referencia a la colección
+  const productsCol = collection(db, "products");
+
   const fetchProducts = async () => {
+    setLoading(true);
     try {
-      const res = await fetch("https://fakestoreapi.com/products");
-      if (!res.ok) throw new Error("Error al obtener los productos");
-      const data = await res.json();
-      setProducts(data);
+      const snapshot = await getDocs(productsCol);
+      const items = snapshot.docs.map(docSnap => ({
+        id: docSnap.id,
+        ...docSnap.data()
+      }));
+      setProducts(items);
     } catch (e) {
-      setError("Ups! No se pudo cargar los productos. " + e.message);
+      console.error(e);
+      setError("No se pudieron cargar los productos: " + e.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -29,11 +47,13 @@ const Dashboard = () => {
   };
 
   const handleDelete = async (id) => {
+    if (!window.confirm("¿Seguro querés eliminar este producto?")) return;
     try {
-      await fetch(`https://fakestoreapi.com/products/${id}`, { method: "DELETE" });
-      setProducts(products.filter((p) => p.id !== id));
+      await deleteDoc(doc(db, "products", id));
+      setProducts(products.filter(p => p.id !== id));
     } catch (e) {
-      setError("Error al eliminar producto. " + e.message);
+      console.error(e);
+      setError("Error al eliminar producto: " + e.message);
     }
   };
 
@@ -53,41 +73,45 @@ const Dashboard = () => {
           + Agregar producto
         </button>
 
-        {error && <p className="error-message">{error}</p>}
+        {error   && <p className="error-message">{error}</p>}
+        {loading && <p>Cargando productos...</p>}
 
-        <table className="products-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Producto</th>
-              <th>Precio</th>
-              <th>Categoría</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((p) => (
-              <tr key={p.id}>
-                <td>{p.id}</td>
-                <td>{p.title}</td>
-                <td>${p.price}</td>
-                <td>{p.category}</td>
-                <td>
-                  <button className="edit-btn" onClick={() => handleEdit(p.id)}>
-                    Editar
-                  </button>
-                  <button className="delete-btn" onClick={() => handleDelete(p.id)}>
-                    Eliminar
-                  </button>
-                </td>
+        {!loading && (
+          <table className="products-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Producto</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acciones</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {products.map((p) => (
+                <tr key={p.id}>
+                  <td>{p.id}</td>
+                  <td>{p.title}</td>
+                  <td>{p.category}</td>
+                  <td>${p.price}</td>
+                  <td>{p.stock}</td>
+                  <td>
+                    <button className="edit-btn" onClick={() => handleEdit(p.id)}>
+                      Editar
+                    </button>
+                    <button className="delete-btn" onClick={() => handleDelete(p.id)}>
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </Layout>
   );
 };
-
 
 export default Dashboard;

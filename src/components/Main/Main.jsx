@@ -2,24 +2,32 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Main.css";
 import bannerImage from "../../assets/img1.jpg";
+import { db } from "../../config/Firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const Main = () => {
   const [products, setProducts] = useState([]);
-  const [error, setError] = useState(null);
+  const [error, setError]       = useState(null);
+  const [loading, setLoading]   = useState(false);
+
+  const productsCol = collection(db, "products");
 
   const fetchProducts = async () => {
+    setLoading(true);
     try {
-      const response = await fetch("https://fakestoreapi.com/products");
-      if (!response.ok) {
-        throw new Error("Error al obtener los productos");
-      }
-      const data = await response.json();
-      setProducts(data);
+      const snapshot = await getDocs(productsCol);
+      const items = snapshot.docs.map(docSnap => ({
+        id: docSnap.id,
+        ...docSnap.data()
+      }));
+      setProducts(items);
+    } catch (e) {
+      console.error(e);
+      setError("No se pudieron cargar los productos: " + e.message);
+    } finally {
+      setLoading(false);
     }
-    catch (error) {
-      setError("Ups! No se pudo cargar los productos. Algo falló, aquí el detalle: " + error.message);
-    }
-  }
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -32,7 +40,8 @@ const Main = () => {
         </div>
         <div className="main-content">
           {error && <p className="error">{error}</p>}
-          {products.length > 0 ? (
+          {loading && <p>Cargando productos...</p>}
+          {!loading && (
             <ul className="product-list">
               {products.map(product => (
                 <li key={product.id} className="product-item">
@@ -50,8 +59,6 @@ const Main = () => {
                 </li>
               ))}
             </ul>
-          ) : (
-            <p>Cargando productos...</p>
           )}
         </div>
     </main>
