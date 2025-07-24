@@ -1,16 +1,10 @@
 // src/views/ProductForm.jsx
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams }   from "react-router-dom";
-import Layout                        from "../components/Layout/Layout";
+import { useNavigate, useParams } from "react-router-dom";
+import Layout from "../components/Layout/Layout";
 import "../styles/ProductForm.css";
-import { db }                        from "../config/Firebase";
-import {
-  collection,
-  addDoc,
-  doc,
-  getDoc,
-  updateDoc
-} from "firebase/firestore";
+import { db } from "../config/Firebase";
+import { collection, addDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 
 const ProductForm = () => {
   const { id }      = useParams();
@@ -31,7 +25,6 @@ const ProductForm = () => {
 
   const productsRef = collection(db, "products");
 
-  // Funciones Firebase
   const createProduct = async (productData) => {
     try {
       const productRef = await addDoc(productsRef, productData);
@@ -106,9 +99,9 @@ const ProductForm = () => {
     // Preparo el objeto que voy a mandar a Firestore
     const payload = {
       ...form,
-      price:      parseFloat(form.price),
-      stock:     parseInt(form.stock),
-      updatedAt:  new Date().toISOString(),
+      price: parseFloat(form.price),
+      stock: parseInt(form.stock),
+      updatedAt: new Date().toISOString(),
       ...( !isEditing && { createdAt: new Date().toISOString() })
     };
 
@@ -137,73 +130,30 @@ const ProductForm = () => {
         <form onSubmit={handleSubmit} className="product-form">
           <label>
             Nombre
-            <input
-              name="title"
-              value={form.title}
-              onChange={handleChange}
-              required
-            />
+            <input name="title" value={form.title} onChange={handleChange} required />
           </label>
-
           <label>
             Categoría
-            <input
-              name="category"
-              value={form.category}
-              onChange={handleChange}
-              required
-            />
+            <input name="category" value={form.category} onChange={handleChange} required />
           </label>
           <label>
             Precio
-            <input
-              name="price"
-              type="number"
-              step="0.01"
-              value={form.price}
-              onChange={handleChange}
-              required
-            />
+            <input name="price" type="number" step="0.01" value={form.price} onChange={handleChange} required/>
           </label>
           <label>
             Stock
-            <input
-              name="stock"
-              type="number"
-              value={form.stock}
-              onChange={handleChange}
-              min="0"
-              required
-            />
+            <input name="stock" type="number" value={form.stock} onChange={handleChange} min="0" required />
           </label>
           <label>
             Descripción
-            <textarea
-              name="description"
-              value={form.description}
-              onChange={handleChange}
-              rows={4}
-            />
+            <textarea name="description" value={form.description} onChange={handleChange} rows={4} />
           </label>
           <label>
             Imagen (URL)
-            <input
-              name="image"
-              value={form.image}
-              onChange={handleChange}
-            />
+            <input name="image" value={form.image} onChange={handleChange} />
           </label>
-
-          <button type="submit" disabled={loading}>
-            { isEditing ? "Guardar cambios" : "Crear producto" }
-          </button>
-          <button
-            type="button"
-            className="cancel-btn"
-            onClick={() => navigate("/dashboard")}
-          >
-            Cancelar
-          </button>
+          <button type="submit" disabled={loading}>{ isEditing ? "Guardar cambios" : "Crear producto" }</button>
+          <button type="button" className="cancel-btn" onClick={() => navigate("/dashboard")}>Cancelar</button>
         </form>
       </div>
     </Layout>

@@ -3,8 +3,6 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout/Layout";
 import "../styles/ProductDetails.css";
-
-// → Importar Firestore y funciones necesarias
 import { db } from "../config/Firebase";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -19,12 +17,9 @@ const ProductDetails = () => {
         // → Traer el documento desde Firestore
         const docRef = doc(db, "products", id);
         const snap   = await getDoc(docRef);
-
         if (!snap.exists()) {
           throw new Error("Producto no encontrado");
         }
-
-        // → Pre-cargar el producto
         setProduct({ id: snap.id, ...snap.data() });
       } catch (err) {
         setError(
@@ -33,7 +28,6 @@ const ProductDetails = () => {
         );
       }
     };
-
     fetchProduct();
   }, [id]);
 

@@ -3,23 +3,17 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import "../styles/Dashboard.css";
-
 import { db } from "../config/Firebase";
-import {
-  collection,
-  getDocs,
-  deleteDoc,
-  doc
-} from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 
 const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const [error, setError]       = useState(null);
   const [loading, setLoading]   = useState(false);
   const navigate = useNavigate();
-
-  // Referencia a la colección
   const productsCol = collection(db, "products");
+  const [showModal, setShowModal] = useState(false);
+  const [toDeleteId, setToDeleteId] = useState(null);
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -46,14 +40,25 @@ const Dashboard = () => {
     navigate(`/dashboard/edit/${id}`);
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("¿Seguro querés eliminar este producto?")) return;
+  const confirmDelete = (id) => {
+    setToDeleteId(id);
+    setShowModal(true);
+  };
+
+  const cancelDelete = () => {
+    setToDeleteId(null);
+    setShowModal(false);
+  };
+
+  const handleDelete = async () => {
     try {
-      await deleteDoc(doc(db, "products", id));
-      setProducts(products.filter(p => p.id !== id));
+      await deleteDoc(doc(db, "products", toDeleteId));
+      setProducts(products.filter(p => p.id !== toDeleteId));
     } catch (e) {
       console.error(e);
       setError("Error al eliminar producto: " + e.message);
+    } finally {
+      cancelDelete();
     }
   };
 
@@ -70,7 +75,7 @@ const Dashboard = () => {
         </p>
 
         <button className="add-btn" onClick={handleAdd}>
-          + Agregar producto
+           Agregar producto
         </button>
 
         {error   && <p className="error-message">{error}</p>}
@@ -97,12 +102,8 @@ const Dashboard = () => {
                   <td>${p.price}</td>
                   <td>{p.stock}</td>
                   <td>
-                    <button className="edit-btn" onClick={() => handleEdit(p.id)}>
-                      Editar
-                    </button>
-                    <button className="delete-btn" onClick={() => handleDelete(p.id)}>
-                      Eliminar
-                    </button>
+                    <button className="edit-btn" onClick={() => handleEdit(p.id)}>Editar</button>
+                    <button className="delete-btn" onClick={() => confirmDelete(p.id)}>Eliminar</button>
                   </td>
                 </tr>
               ))}
@@ -110,6 +111,20 @@ const Dashboard = () => {
           </table>
         )}
       </div>
+
+      {showModal && (
+       <div className="modal-overlay">
+         <div className="modal-content">
+           <p>¿Estás seguro que querés eliminar este producto?</p>
+           <div className="modal-buttons">
+             <button onClick={cancelDelete}>Cancelar</button>
+             <button className="delete-btn" onClick={handleDelete}>
+               Eliminar
+             </button>
+           </div>
+         </div>
+       </div>
+      )}
     </Layout>
   );
 };
