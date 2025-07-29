@@ -79,12 +79,16 @@ const ProductForm = () => {
     setError(null);
 
     // validaciones
-    if (!form.title || !form.price || !form.category) {
+    if (!form.sku || !form.title || !form.price || !form.category) {
       setError("Por favor completa todos los campos obligatorios");
       return;
     }
     if (isNaN(form.price) || parseFloat(form.price) <= 0) {
       setError("El precio debe ser un número positivo");
+      return;
+    }
+    if (form.sku.length < 3) {
+      setError("El sku del producto debe tener al menos 3 caracteres");
       return;
     }
     if (form.title.length < 3) {
@@ -128,6 +132,10 @@ const ProductForm = () => {
         { error   && <p className="error-msg">{error}</p> }
 
         <form onSubmit={handleSubmit} className="product-form">
+          <label>
+            SKU
+          <input name="sku" value={form.sku} onChange={handleChange} required />
+          </label>
           <label>
             Nombre
             <input name="title" value={form.title} onChange={handleChange} required />

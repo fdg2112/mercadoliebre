@@ -45,6 +45,7 @@ const ProductDetails = () => {
               <h2>{product.title}</h2>
               <h3>${product.price}</h3>
               <p>{product.description}</p>
+              <p>SKU {product.sku}</p>
               <div className="pd-extra">
                 <p className="pd-installments">
                   Mismo precio en 3 cuotas de ${(product.price / 3).toFixed(2)}

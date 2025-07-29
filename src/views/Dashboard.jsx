@@ -85,7 +85,7 @@ const Dashboard = () => {
           <table className="products-table">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>SKU</th>
                 <th>Producto</th>
                 <th>Categoría</th>
                 <th>Precio</th>
@@ -96,7 +96,7 @@ const Dashboard = () => {
             <tbody>
               {products.map((p) => (
                 <tr key={p.id}>
-                  <td>{p.id}</td>
+                  <td>{p.sku}</td>
                   <td>{p.title}</td>
                   <td>{p.category}</td>
                   <td>${p.price}</td>

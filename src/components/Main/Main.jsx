@@ -50,6 +50,7 @@ const Main = () => {
                   </div>
                   <h2>{product.title}</h2>
                   <p>Precio: ${product.price}</p>
+                  <p>SKU {product.sku}</p>
                   <div className="card-buttons">
                     <button className="add-to-cart">Añadir al carrito</button>
                     <Link to={`/products/${product.id}`} className="view-details">
