@@ -95,20 +95,22 @@
   font-weight: normal;
 }
 
-.product-item p {
+
+.product-price {
   font-size: 1em;
   color: #495057;
   font-family: Roboto;
   font-weight: bold;
 }
 
-.product-item p2 {
+.product-sku {
   font-size: 0.8em;
-  color: #495057;
+  color: #6c757d;
   font-family: Roboto;
-  font-weight: bold;
-  margin-top: 5px;
+  font-weight: normal;
+  margin-top: 4px;
 }
+
 
 .card-buttons {
   display: flex;

@@ -49,8 +49,8 @@ const Main = () => {
                     <img src={product.image} alt={product.title} />
                   </div>
                   <h2>{product.title}</h2>
-                  <p>Precio: ${product.price}</p>
-                  <p>SKU {product.sku}</p>
+                  <p className="product-price">Precio: ${product.price}</p>
+                  <p className="product-sku">SKU {product.sku}</p>
                   <div className="card-buttons">
                     <button className="add-to-cart">Añadir al carrito</button>
                     <Link to={`/products/${product.id}`} className="view-details">
