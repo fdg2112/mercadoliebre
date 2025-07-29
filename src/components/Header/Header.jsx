@@ -5,9 +5,21 @@ import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../../config/Firebase";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const { userData } = useContext(UserContext);
+  const navigate = useNavigate();
+  const { userData, setUserData } = useContext(UserContext);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setUserData(null);
+      navigate("/");
+    } catch (err) {
+      console.error("Error al cerrar sesión:", err);
+    }
+  };
 
   return (
     <header className="header">
@@ -27,12 +39,12 @@ const Header = () => {
               <>
                 <li className="header-menu-item"><Link to="/perfil">🚹 Perfil</Link></li>
                 <li className="header-menu-item"><Link to="/carrito">🛒 Carrito</Link></li>
-                <li onClick={() => signOut(auth)}>Cerrar Sesión</li>
+                <li onClick={handleLogout}>Cerrar Sesión</li>
               </>
             ) : (
               <>
                 <li className="header-menu-item"><Link to="/dashboard">📊 Dashboard</Link></li>
-                <li onClick={() => signOut(auth)}>Cerrar Sesión</li>
+                <li onClick={handleLogout}>Cerrar Sesión</li>
               </>
             )
           ) : (
