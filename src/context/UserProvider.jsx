@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../config/Firebase.js";
+import { auth, db } from "../config/Firebase";
 import { UserContext } from "./UserContext";
 
 export const UserProvider = ({ children }) => {
